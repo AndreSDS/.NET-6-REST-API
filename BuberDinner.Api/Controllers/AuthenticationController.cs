@@ -1,6 +1,9 @@
+using BuberDinner.Application.Common.Errors;
 using BuberDinner.Application.Services.Authentication;
 using BuberDinner.Contracts.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using FluentResults;
+
 namespace BuberDinner.Api.Controllers
 {
     [ApiController]
@@ -17,22 +20,37 @@ namespace BuberDinner.Api.Controllers
         [HttpPost("register")]
         public IActionResult Register(RegisterRequest request)
         {
-            var registerResult = _authenticationService.Register(
-                request.FirstName,
-                request.LastName,
-                request.Email,
-                request.Password
-            );
+            Result<AuthenticationResult> registerResult = _authenticationService.Register(
+                 request.FirstName,
+                 request.LastName,
+                 request.Email,
+                 request.Password
+             );
 
-            var response = new AuthenticationResponse(
-                registerResult.User.Id,
-                registerResult.User.FirstName,
-                registerResult.User.LastName,
-                registerResult.User.Email,
-                registerResult.Token
-            );
+            if (registerResult.IsSuccess)
+            {
+                return Ok(MapAuthResult(registerResult.Value));
+            }
 
-            return Ok(response);
+            var firstError = registerResult.Errors[0];
+
+            if (firstError is DuplicateEmailError)
+            {
+                return Problem(statusCode: StatusCodes.Status409Conflict, detail: "Email already exists");
+            }
+
+            return Problem();
+        }
+
+        private static AuthenticationResponse MapAuthResult(AuthenticationResult registerResult)
+        {
+            return new AuthenticationResponse(
+                                registerResult.User.Id,
+                                registerResult.User.FirstName,
+                                registerResult.User.LastName,
+                                registerResult.User.Email,
+                                registerResult.Token
+                            );
         }
 
         [HttpPost("login")]

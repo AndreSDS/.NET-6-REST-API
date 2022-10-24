@@ -34,3 +34,6 @@ C:\Users\andre.souza\Documents\BuberDinner\BuberDinner.Api\bin\Debug\net6.0\Micr
 C:\Users\andre.souza\Documents\BuberDinner\BuberDinner.Api\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\andre.souza\Documents\BuberDinner\BuberDinner.Api\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\andre.souza\Documents\BuberDinner\BuberDinner.Api\bin\Debug\net6.0\Microsoft.Extensions.Configuration.dll
+C:\Users\andre.souza\Documents\BuberDinner\BuberDinner.Api\bin\Debug\net6.0\OneOf.dll
+C:\Users\andre.souza\Documents\BuberDinner\BuberDinner.Api\bin\Debug\net6.0\FluentResults.dll
+C:\Users\andre.souza\Documents\BuberDinner\BuberDinner.Api\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
